@@ -1,0 +1,38 @@
+#chat_container {
+  height: 100%;
+  background-color: white;
+  float: right;
+  border: black 2px solid;
+}
+
+h3 {
+  color: white;
+}  
+
+.my_message {
+  background-color: crimson;
+  margin-left: 5%;
+}
+  
+.message_from_other {
+  background-color: green;
+}
+  
+.time_from_other {
+  color: black;
+  float: right;
+  margin-right: 9%;
+}
+ 
+.my_time {
+  color: black;
+  margin-left: 3%;
+}
+  
+.message{
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: black;
+  width: 90%;
+}

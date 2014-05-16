@@ -1,0 +1,196 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+
+<!--<h1>Moba Chat V 1.5</h1>-->
+<style>
+#chat_container {
+  height: 100%;
+  background-color: white;
+  float: right;
+  border: black 2px solid;
+  padding-left: 0px; 
+  padding-right: 0px;
+}
+
+h3 {
+  color: white;
+}  
+
+.my_message {
+  background-color: crimson;
+  margin-left: 5%;
+  float: right;
+}
+  
+.message_from_other {
+  background-color: green;
+}
+  
+.time_from_other {
+  color: black;
+  float: left;
+  margin-left: 0%;
+}
+ 
+.my_time {
+  color: black;
+  margin-right: 5%;
+  float: right;
+}
+  
+.message{
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: black;
+  width: 99%;
+  display: inline; 
+  overflow-y: auto;
+  display: block;
+}
+  
+#messagesContainer{
+  display: none;
+  position: relative; 
+  width: 98%; 
+  margin-left: 2%; 
+  height: 570px; 
+  overflow-y: scroll; 
+  background-color: white; 
+  height: 80%;
+}
+  
+#txt_user_name {
+  display: inline; 
+  width: 82%; 
+  margin-top: 10px;
+}
+  
+#data_chat {
+  background-color: black; 
+  height: 30px;
+  width: 100%; 
+  display: none;
+}  
+  
+#enviados {
+  display: none; 
+  position: absolute; 
+  bottom: 0px;
+  width: 96%; 
+  left: 1%;
+}
+  
+#message {
+  display: inline;
+  width: 88%;
+}
+  
+#send_button {
+  margin-bottom: 29px;
+}
+  
+#other_name {
+  margin-right: 7%;
+  float: right;
+}
+
+#my_name {
+  
+}
+  
+
+  
+</style>
+
+<div id="chat_container" class="col-md-4">
+  <div id="data_chat" class="col-xs-6 col-md-4">
+    <h3 style="margin-top:0px;" id="user_name_container"><label id="lbl_usr_name"></label></h3>
+  </div>
+  <div id="txt_username_container" class="col-xs-12 col-md-8">
+    <input type="text" id="txt_user_name" class="form-control" placeholder="Nombre de usuario"/>
+    <button type = "button" id="send_name_button" class="btn btn-success" onclick="sendUsername()" >Enviar</button>
+  </div>
+  <div id="messagesContainer" class="form-group">
+    <!--<textarea id = "prueba" class="form-control" rows="10"></textarea>-->
+    
+  </div>
+  <br>
+  <div id="enviados">
+    <textarea id="message" class="form-control" rows="1" placeholder="Ingresa tu mensaje"></textarea>
+    <button type = "button" id="send_button" class="btn btn-success" onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+<script>
+  var socket = io.connect('http://geer-box-111568.sae1.nitrousbox.com/');
+  socket.on('chat', function (data) {
+    //console.log(JSON.stringify(data));
+    //var div = document.getElementById("messagesContainer");
+    //var mensajeEntrante = $('#prueba');
+    var thisUser = $('#lbl_usr_name').text();
+    var messageContainer = $('#messageContainer');
+    var incommingMessage;
+    var hourMessage;
+    if (data.msg !== undefined && data.msg !== "") {
+      var now = new Date();
+      //mensajeEntrante.text(mensajeEntrante.text() + '\n' + data.name +': '+data.msg+' '+now.getDay()+'/'+now.getMonth()+'/'+now.getYear()+' '+now.getHours()+':'+now.getMinutes());
+      incommingMessage = data.msg;
+       hourMessage = now.getDay()+'/'+now.getMonth()+'/'+now.getFullYear()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
+      if (data.name == thisUser){
+        $('#messagesContainer').append('<div class="message" id="actual"></div>');
+        $('#actual').append('<div class=" col-md-8 text-left" id="my_name">Yo</div>');
+        $('#actual').append('<div class="message message_from_other col-md-8 text-left">'+incommingMessage+'</div>');
+        $('#actual').append('<div class="time_from_other col-md-4 text-left">'+hourMessage+'</div>');
+        $('#actual').removeAttr('id');
+        $('#message').val('');
+      }else {
+        $('#messagesContainer').append('<div class="message" id="actual"></div>');
+        $('#actual').append('<div class="col-md-8 text-right" id="other_name">'+data.name+'</div>');
+        $('#actual').append('<div class="message my_message col-md-8 text-right">'+incommingMessage+'</div>');
+        $('#actual').append('<div class="my_time col-md-4 text-right">'+hourMessage+'</div>');
+        $('#actual').removeAttr('id');
+      }
+      //mensajeEntrante.innerHTML = mensajeEntrante.innerHTML + '</br>' + data.name +': '+data.msg+' '+now.getDay()+'/'+now.getMonth()+'/'+now.getYear()+' '+now.getHours()+':'+now.getMinutes();
+      //div.innerHTML = div.innerHTML + '</br>' + data.name +': '+data.msg+' '+now.getDay()+'/'+now.getMonth()+'/'+now.getYear()+' '+now.getHours()+':'+now.getMinutes();
+    }
+  });
+  
+  function sendMessage() {
+    var msg = $('#message').val();
+    $('#message').val('');
+    socket.emit('chat', {msg: msg});
+  }
+  $(document).ready(function(){
+    $('#txt_user_name').focus();
+    $('#message').keypress(function(e){
+      if(e.keyCode==13) {
+        $('#send_button').click();
+      }
+    });
+    $('#txt_user_name').keypress(function(e){
+      if(e.keyCode==13)
+        $('#send_name_button').click();
+    });
+    
+});
+  
+  function sendUsername() {
+    var usrName = $('#txt_user_name').val();
+    socket.emit('usrname', {name: usrName});
+    $('#enviados').css('display', 'block');
+    $('#messagesContainer').css('display', 'block');
+    $('#txt_user_name').css('display', 'none');
+    $('#send_name_button').css('display', 'none');
+    $('#data_chat').css('display', 'block');
+    $('#lbl_usr_name').text(usrName);
+    $('#message').focus();
+  }
+  
+  
+  
+  
+</script>
