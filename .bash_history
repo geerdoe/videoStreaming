@@ -137,3 +137,113 @@ cd ..
 ls -l
 node workspace/app.js
 node workspace/app.js
+heroku maintenace:off --app moba-chat
+heroku maintenance:off --app moba-chat
+heroku open -app moba-chat
+heroku maintenance:on --app moba-chat
+heroku maintenance:off --app moba-chat
+heroku logs
+ls 
+cd workspace/
+ls -l
+heroku logs
+heroku logs --app moba-chat
+heroku logs --app moba-chat
+heroku open -app moba-chat
+heroku apps:open
+heroku apps:open --app moba-chat
+heroku apps:open --app moba-chat
+heroku apps:open --app moba-chat -d
+heroku apps:open -d --app moba-chat
+heroku logs --app moba-chat
+heroku ps:scale web=1
+heroku ps:scale web=1 --app moba-chat
+git status
+git remote status
+git push -f heroku
+gir
+git
+cd ..
+ls -l
+cd ..
+ls -l
+cd action/
+ls -l
+git init
+git add .
+git commit -m "my first commit"
+heroku create
+git remote -v
+heroku git:remote -a moba-chat-v1
+git push heroku master
+git push heroku master
+git push heroku master
+heroku create moba-chat
+ls -l
+r, -R .git
+rm -R .git
+rm -Rf .git
+ls -l
+clear
+git init
+ls
+rm -Rf .git
+cd workspace/
+ls -l
+cd ..
+git init
+git add .
+git commit -m "my first commit"
+git config user.email "german@mobaires.com"
+git config user.name "Geer"
+git commit -m "my first commit"
+heroku create
+git remote -v
+heroku git:remote -a boiling-springs-6886
+git remote -v
+heroku git:remote -a boiling-springs-6886
+git push heroku master
+git remote -v
+git push heroku master
+git push heroku master
+ls -l
+cd workspace/
+ls -l
+cd ..
+cd node_modules/
+ls -l
+cd ..
+ls -l
+cd tmp/
+ls- l
+ls -l
+cd ..
+ls -l
+ls -l
+git push heroku master
+node app.js
+npm install express
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+pwd
+ls
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
+node app.js
